@@ -1,0 +1,39 @@
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const connectDB = require('./config/db');
+
+const app = express();
+
+// **Connect to MongoDB**
+connectDB();
+
+// **Middleware**
+app.use(cors());
+app.use(express.json());
+
+app.use('/api/auth', require('./routes/auth'));
+
+
+// **API Routes**
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/events', require('./routes/events'));
+
+// **Home Route (For Testing)**
+app.get('/', (req, res) => {
+    res.send('✅ Event Management Backend is Running...');
+});
+
+// **Start the Server**
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+console.log("✅ Registered Routes:");
+console.log(app._router.stack.map(layer => layer.route?.path).filter(Boolean));
+
+app._router.stack.forEach((layer) => {
+    if (layer.route) {
+        console.log(`✅ Registered Route: ${layer.route.path}`);
+    }
+});
