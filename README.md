@@ -1,5 +1,5 @@
 📌 Event Management Platform
-🎉 A Smart and Interactive Platform for Seamless Event Planning & Management
+. A Smart and Interactive Platform for Seamless Event Planning & Management
 
 🚀 About the Project
 The Event Management Platform is a full-stack web application designed to simplify event creation, management, and attendee tracking. With a modern UI/UX, real-time features, and seamless user authentication, this platform provides an efficient way to organize and participate in events.
