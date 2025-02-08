@@ -1,0 +1,42 @@
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+
+const router = express.Router();
+
+// **Test Route (To Check if `auth.js` is Loaded)**
+router.get('/test', (req, res) => {
+    res.json({ message: "Auth routes are working!" });
+});
+
+// **REGISTER USER ROUTE**
+router.post('/register', async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
+
+        // **Check if all fields are provided**
+        if (!username || !email || !password) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        // **Check if user already exists**
+        const userExists = await User.findOne({ email });
+        if (userExists) {
+            return res.status(400).json({ message: "User already exists" });
+        }
+
+        // **Hash the password**
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // **Create a new user**
+        const user = await User.create({ username, email, password: hashedPassword });
+
+        res.status(201).json({ message: "User registered successfully", userId: user._id });
+    } catch (error) {
+        console.error("❌ Registration Error:", error);
+        res.status(500).json({ message: "Server error. Try again later." });
+    }
+});
+
+module.exports = router;
