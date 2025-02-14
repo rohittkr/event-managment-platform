@@ -41,4 +41,3 @@ MongoDB + Mongoose – NoSQL database for event storage
 JWT Authentication – Ensures secure login
 CORS & Helmet – Enhances security and cross-origin support
 
-Demo Video:** [Google Drive Video Link](https://drive.google.com/file/d/1zXpzuBCJ_2Tinp95BvLm9Jmucg12x3fM/view)  
